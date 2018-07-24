@@ -5,7 +5,7 @@
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
       <item v-for="(todo, index) in todos"
-        :key="index" :item="todo" :index="index"
+        :key="index" :item="todo"
         @deleteItem="$emit('deleteItem', index)"
         @toggleItem="$emit('toggleItem', index)"
         @editItem="$emit('editItem', { index, editedTitle: $event})">

@@ -8,7 +8,9 @@
         @editItem="editItem"></todo-body>
       <todo-footer :remaining="remaining"
         :visibility="visibility"
-        @changeFilter="changeFilter"></todo-footer>
+        :completedCount="completedCount"
+        @changeFilter="changeFilter"
+        @removeCompleted="removeCompleted"></todo-footer>
     </section>
   </div>
 </template>
@@ -56,6 +58,9 @@ export default {
     },
     remaining () {
       return filters.active(this.todos).length
+    },
+    completedCount () {
+      return filters.completed(this.todos).length
     }
   },
   methods: {
@@ -76,6 +81,9 @@ export default {
     },
     changeFilter (filter) {
       this.visibility = filter
+    },
+    removeCompleted () {
+      this.todos = filters.active(this.todos)
     }
   },
   components: {

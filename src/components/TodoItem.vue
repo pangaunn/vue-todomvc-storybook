@@ -1,7 +1,9 @@
 <template>
   <li :class="{ completed: item.completed, editing: item === editedTodo }">
     <div class="view">
-      <input class="toggle" type="checkbox" @click="$emit('toggleItem')">
+      <input class="toggle" type="checkbox"
+        :checked="item.completed"
+        @click="toggleItem">
       <label @dblclick="editTodo(item)">{{ item.title }}</label>
       <button class="destroy" @click="$emit('deleteItem')"></button>
     </div>
@@ -28,6 +30,10 @@ export default {
     }
   },
   methods: {
+    toggleItem (e) {
+      e.preventDefault()
+      this.$emit('toggleItem')
+    },
     editTodo (item) {
       this.beforeEditCache = item.title
       this.editTitle = item.title
@@ -44,15 +50,8 @@ export default {
       } else {
         this.$emit('deleteItem')
       }
-      /*
-      todo.title = todo.title.trim()
-      if (!todo.title) {
-        this.removeTodo(todo)
-      }
-      */
     },
     cancelEdit (item) {
-      console.log('3333333333333')
       this.editedTodo = null
       item.title = this.beforeEditCache
     }
